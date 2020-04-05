@@ -86,24 +86,25 @@ const arr = [
 ['BracketRight', {keyLatinShift: '}', keyLatin: ']'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ъ'}, 28],
 ['BracketRight', {keyLatinShift: '"', keyLatin: '\''}, {keyCyrillicShift: 'undefine', keyCyrillic:'Э'}, 41],
 ]; 
-    
+   
 function CreateElement(arr){
     for (let i of arr){
-        
+
         let elemKeyboard = document.createElement('button');    
-        [elemKeyboard.id, , ,elemKeyboard.style.order] = i;
-        
-        //elemKeyboard.id = i[0];
+        let [id, {keyLatinShift, keyLatin}, {keyCyrillicShift, keyCyrillic}, order] = i;
+        [elemKeyboard.id, elemKeyboard.style.order] = [id, order];
         elemKeyboard.className = "key alphabet latin";    
-        elemKeyboard.innerText = i[1].keyLatin;
-        //elemKeyboard.style.order = i[3];*/
+        if (keyLatinShift == 'undefine') {
+            elemKeyboard.innerHTML = keyLatin;
+        } else{
+            elemKeyboard.classList.add("key_container");
+            elemKeyboard.innerHTML = `<p>${keyLatinShift}</p><p>${keyLatin}</p>`;
+        }   
         document.querySelector("body > .container").append(elemKeyboard);
     }
 }
 
 let keybutton = new CreateElement(arr);
-
-
 
 const keydownActiv = (event) => {
     event.preventDefault();   
