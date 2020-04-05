@@ -27,6 +27,10 @@ body {
     margin: 3px;
 }
 
+.active {
+    background-color: #737392;
+}
+
 .alphabet {
 
 }
