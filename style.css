@@ -13,6 +13,14 @@ body {
     
 }
 
+.pre {
+    /*white-space: nowrap;*/
+}
+
+.pre>p {
+    display: inline-block;
+}
+
 .container {
     display: flex;
     width: inherit;

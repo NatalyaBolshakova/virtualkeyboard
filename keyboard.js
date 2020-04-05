@@ -1,18 +1,33 @@
 "use strict"
 let step = 0;
+let language;
+//let locStorage = window.localStorage;
 
 let header = document.createElement('h1');
 header.className = "header";
-header.innerHTML = 'Keyboard. Windows OS';
+header.innerHTML = 'Keyboard QWERTY. Windows OS';
 document.body.append(header);
 
 let textarea = document.createElement('textarea');
 textarea.className = "areatext";
 document.body.append(textarea);
 
+//localStorage.clear();
+let identifyLanguage = () =>{
+    let lang = localStorage.getItem('language');
+    console.log('!' + lang);
+    if (lang == null){
+        lang = 'en';
+        localStorage.setItem('language', lang);        
+    } 
+    return lang;      
+}
+
+language = identifyLanguage();
+
 let infArea = document.createElement('section');
 infArea.className = "inf-area";
-infArea.innerHTML = '<p>CapsLock: next.</p><p>Language: language.</p>';
+infArea.innerHTML = `<pre class="pre">CapsLock: next.     Language (Ctrl+Shift):<p>${language.toUpperCase()}.</p></pre>`;
 document.body.append(infArea);
 
 let keyboard = document.createElement('section');
@@ -81,7 +96,7 @@ const arr = [
 ['Period', {keyLatinShift: '>', keyLatin: '.'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ю'}, 52],
 ['Slash', {keyLatinShift: '?', keyLatin: '/'}, {keyCyrillicShift: ',', keyCyrillic:'.'}, 53],
 ['Backquote', {keyLatinShift: '~', keyLatin: '`'}, {keyCyrillicShift: 'undefine', keyCyrillic:'ё'}, 1],
-['BracketLeft', {keyLatinShift: '[', keyLatin: '{'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Х'}, 27],
+['BracketLeft', {keyLatinShift: '{', keyLatin: '['}, {keyCyrillicShift: 'undefine', keyCyrillic:'Х'}, 27],
 ['Backslash', {keyLatinShift: '|', keyLatin: '\\'}, {keyCyrillicShift: '/', keyCyrillic:'\\'}, 14],
 ['BracketRight', {keyLatinShift: '}', keyLatin: ']'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ъ'}, 28],
 ['BracketRight', {keyLatinShift: '"', keyLatin: '\''}, {keyCyrillicShift: 'undefine', keyCyrillic:'Э'}, 41],
@@ -93,18 +108,30 @@ function CreateElement(arr){
         let elemKeyboard = document.createElement('button');    
         let [id, {keyLatinShift, keyLatin}, {keyCyrillicShift, keyCyrillic}, order] = i;
         [elemKeyboard.id, elemKeyboard.style.order] = [id, order];
-        elemKeyboard.className = "key alphabet latin";    
-        if (keyLatinShift == 'undefine') {
-            elemKeyboard.innerHTML = keyLatin;
-        } else{
-            elemKeyboard.classList.add("key_container");
-            elemKeyboard.innerHTML = `<p>${keyLatinShift}</p><p>${keyLatin}</p>`;
-        }   
+        elemKeyboard.className = "key alphabet latin";
         document.querySelector("body > .container").append(elemKeyboard);
+        if (language == 'en') {
+            if (keyLatinShift == 'undefine') {
+                elemKeyboard.innerHTML = keyLatin;
+            } else{
+                elemKeyboard.classList.add("key_container");
+                elemKeyboard.innerHTML = `<p>${keyLatinShift}</p><p>${keyLatin}</p>`;
+            }   
+        } else {
+            if (keyCyrillicShift == 'undefine') {
+                elemKeyboard.innerHTML = keyCyrillic;
+            } else{
+                elemKeyboard.classList.add("key_container");
+                elemKeyboard.innerHTML = `<p>${keyCyrillicShift}</p><p>${keyCyrillic}</p>`;
+            }
+        }   
+        
     }
 }
 
 let keybutton = new CreateElement(arr);
+
+//const identifyLanguageKeyboard = (arr) => {}
 
 const keydownActiv = (event) => {
     event.preventDefault();   
@@ -118,6 +145,27 @@ const keyupActiv = (event) => {
 
 document.addEventListener('keydown', keydownActiv);
 document.addEventListener('keyup', keyupActiv);
+
+
+document.addEventListener('keydown', (event)=>{
+    
+    if (event.ctrlKey && event.key === "Shift"){
+        
+        console.log('!!' +language);
+        if (language == 'en'){
+            language = 'ru';
+        } else {
+            language = 'en';
+        }
+        localStorage.setItem('language', language);
+    }
+    console.log(language);
+    document.querySelector("body > section.inf-area > pre > p").innerHTML = ` ${language.toUpperCase()}.`;
+    
+    
+});
+
+
 
 
 
