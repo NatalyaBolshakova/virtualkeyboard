@@ -1,0 +1,34 @@
+body {
+    margin: 0 auto;
+    width: calc(100vw/2);
+}
+.areatext {
+    width: inherit;
+    height: calc(100vh/4);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    border: 2px solid #50485c;
+    font-size: 12px;
+    line-height: 22px;  
+    
+}
+
+.container {
+
+}
+
+.key {
+
+}
+
+.alphabet {
+
+}
+
+.latin {
+
+}
+
+.cyrillic {
+      
+}
