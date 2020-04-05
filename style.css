@@ -14,11 +14,17 @@ body {
 }
 
 .container {
-
+    display: flex;
+    width: inherit;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #bbb3c7;
 }
 
 .key {
-
+    width: 40px;
+    height: 40px;
+    margin: 3px;
 }
 
 .alphabet {
