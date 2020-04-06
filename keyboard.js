@@ -1,7 +1,6 @@
 "use strict"
 let step = 0;
 let language;
-//let locStorage = window.localStorage;
 
 let header = document.createElement('h1');
 header.className = "header";
@@ -12,8 +11,8 @@ let textarea = document.createElement('textarea');
 textarea.className = "areatext";
 document.body.append(textarea);
 
-//localStorage.clear();
-let identifyLanguage = () =>{
+
+let identifyLanguage = () => {
     let lang = localStorage.getItem('language');
     console.log('!' + lang);
     if (lang == null){
@@ -22,12 +21,11 @@ let identifyLanguage = () =>{
     } 
     return lang;      
 }
-
 language = identifyLanguage();
 
 let infArea = document.createElement('section');
 infArea.className = "inf-area";
-infArea.innerHTML = `<pre class="pre">CapsLock: next.     Language (Ctrl+Shift):<p>${language.toUpperCase()}.</p></pre>`;
+infArea.innerHTML = `<pre class="pre">CapsLock: next.     Language (Ctrl+Shift):<p> ${language.toUpperCase()}.</p></pre>`;
 document.body.append(infArea);
 
 let keyboard = document.createElement('section');
@@ -95,21 +93,26 @@ const arr = [
 ['Minus', {keyLatinShift: '_', keyLatin: '-'}, {keyCyrillicShift: '_', keyCyrillic:'-'}, 12],
 ['Period', {keyLatinShift: '>', keyLatin: '.'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ю'}, 52],
 ['Slash', {keyLatinShift: '?', keyLatin: '/'}, {keyCyrillicShift: ',', keyCyrillic:'.'}, 53],
-['Backquote', {keyLatinShift: '~', keyLatin: '`'}, {keyCyrillicShift: 'undefine', keyCyrillic:'ё'}, 1],
+['Backquote', {keyLatinShift: '~', keyLatin: '`'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ё'}, 1],
 ['BracketLeft', {keyLatinShift: '{', keyLatin: '['}, {keyCyrillicShift: 'undefine', keyCyrillic:'Х'}, 27],
 ['Backslash', {keyLatinShift: '|', keyLatin: '\\'}, {keyCyrillicShift: '/', keyCyrillic:'\\'}, 14],
 ['BracketRight', {keyLatinShift: '}', keyLatin: ']'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ъ'}, 28],
-['BracketRight', {keyLatinShift: '"', keyLatin: '\''}, {keyCyrillicShift: 'undefine', keyCyrillic:'Э'}, 41],
+['Quote', {keyLatinShift: '"', keyLatin: '\''}, {keyCyrillicShift: 'undefine', keyCyrillic:'Э'}, 41],
 ]; 
-   
-function CreateElement(arr){
-    for (let i of arr){
 
-        let elemKeyboard = document.createElement('button');    
-        let [id, {keyLatinShift, keyLatin}, {keyCyrillicShift, keyCyrillic}, order] = i;
-        [elemKeyboard.id, elemKeyboard.style.order] = [id, order];
+function CreateElement(arr){
+    for (let [id, , , order] of arr){
+        let elemKeyboard = document.createElement('button');
+        [elemKeyboard.id, elemKeyboard.style.order] = [id,order];
         elemKeyboard.className = "key alphabet latin";
-        document.querySelector("body > .container").append(elemKeyboard);
+        document.querySelector("body > .container").append(elemKeyboard);         
+    }
+}
+let keybutton = new CreateElement(arr);
+
+function createInnerHTML(arr){
+    for (let [id, {keyLatinShift, keyLatin}, {keyCyrillicShift, keyCyrillic}, ] of arr){
+        let elemKeyboard = document.getElementById(id);
         if (language == 'en') {
             if (keyLatinShift == 'undefine') {
                 elemKeyboard.innerHTML = keyLatin;
@@ -119,19 +122,16 @@ function CreateElement(arr){
             }   
         } else {
             if (keyCyrillicShift == 'undefine') {
+                elemKeyboard.classList.remove("key_container");
                 elemKeyboard.innerHTML = keyCyrillic;
             } else{
                 elemKeyboard.classList.add("key_container");
                 elemKeyboard.innerHTML = `<p>${keyCyrillicShift}</p><p>${keyCyrillic}</p>`;
             }
-        }   
-        
+        }            
     }
 }
-
-let keybutton = new CreateElement(arr);
-
-//const identifyLanguageKeyboard = (arr) => {}
+let inner = createInnerHTML(arr);
 
 const keydownActiv = (event) => {
     event.preventDefault();   
@@ -146,11 +146,8 @@ const keyupActiv = (event) => {
 document.addEventListener('keydown', keydownActiv);
 document.addEventListener('keyup', keyupActiv);
 
-
-document.addEventListener('keydown', (event)=>{
-    
-    if (event.ctrlKey && event.key === "Shift"){
-        
+document.addEventListener('keydown', (event)=>{    
+    if (event.ctrlKey && event.key === "Shift"){        
         console.log('!!' +language);
         if (language == 'en'){
             language = 'ru';
@@ -161,13 +158,8 @@ document.addEventListener('keydown', (event)=>{
     }
     console.log(language);
     document.querySelector("body > section.inf-area > pre > p").innerHTML = ` ${language.toUpperCase()}.`;
-    
-    
+    createInnerHTML(arr); 
 });
-
-
-
-
 
 //keyboard.addEventListener('click', keypressActiv);
 
