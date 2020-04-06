@@ -8,9 +8,21 @@ header.innerHTML = 'Keyboard QWERTY. Windows OS';
 document.body.append(header);
 
 let textarea = document.createElement('textarea');
+textarea.setAttribute('autofocus', '');
+textarea.setAttribute('name', 'inputetext');
+/*textarea.focus();
+textarea.selectionStart = textarea.value.length;*/
+
 textarea.className = "areatext";
 document.body.append(textarea);
-
+/*let textarea = {
+    'autofocus': ' ',
+    'class':"areatext",
+    let textar = document.createElement('textarea'),
+    //appendElem() {document.body.append(textarea)},
+}
+document.body.append(textarea);*/
+ 
 
 let identifyLanguage = () => {
     let lang = localStorage.getItem('language');
@@ -32,104 +44,233 @@ let keyboard = document.createElement('section');
 keyboard.className = "container";
 document.body.append(keyboard);
 
-const arr = [
-['Backspace', { keyLatinShift: 'undefine', keyLatin: 'backSpace' }, { keyCyrillicShift: 'undefine', keyCyrillic: 'backSpace' }, 15],
-['Tab', { keyLatinShift: 'undefine', keyLatin: 'Tab' }, { keyCyrillicShift: 'undefine', keyCyrillic: 'Tab' }, 16],
-['Enter', { keyLatinShift: 'undefine', keyLatin: 'Enter' }, { keyCyrillicShift: 'undefine', keyCyrillic: 'Enter' }, 42] ,
-['ShiftLeft', {keyLatinShift: 'undefine', keyLatin: 'Shift'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Shift'}, 43],
-['ShiftRight', {keyLatinShift: 'undefine', keyLatin: 'Shift'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Shift'}, 55],
-['ControlLeft', {keyLatinShift: 'undefine', keyLatin: 'Ctrl'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ctrl'}, 56],
-['ControlRight', {keyLatinShift: 'undefine', keyLatin: 'Ctrl'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ctrl'}, 64],
-['AltLeft', {keyLatinShift: 'undefine', keyLatin: 'Alt'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Alt'}, 58],
-['AltRight', {keyLatinShift: 'undefine', keyLatin: 'Alt'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Alt'}, 60],
-['CapsLock', {keyLatinShift: 'undefine', keyLatin: 'Caps Lock'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Caps Lock'}, 30],
-['Escape', {keyLatinShift: 'undefine', keyLatin: 'Esc'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Esc'}, 0],
-['Space', {keyLatinShift: 'undefine', keyLatin: 'Space'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Space '}, 59],
-['ArrowLeft', {keyLatinShift: 'undefine', keyLatin: 'Left'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Left'}, 61],
-['ArrowUp', {keyLatinShift: 'undefine', keyLatin: 'Up'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Up'}, 54],
-['ArrowRight', {keyLatinShift: 'undefine', keyLatin: "Right"}, {keyCyrillicShift: 'undefine', keyCyrillic:"Right"}, 63],
-['ArrowDown', {keyLatinShift: 'undefine', keyLatin: 'Down'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Down'}, 62],
-['Delete', {keyLatinShift: 'undefine', keyLatin: 'Del'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Del'}, 29],
-['Digit0', {keyLatinShift: ')', keyLatin: '0'}, {keyCyrillicShift: ')', keyCyrillic:'0'}, 11],
-['Digit1', {keyLatinShift: '!', keyLatin: '1'}, {keyCyrillicShift: '!', keyCyrillic:'1'}, 2],
-['Digit2', {keyLatinShift: '@', keyLatin: '2'}, {keyCyrillicShift: '"', keyCyrillic:'2'}, 3],
-['Digit3', {keyLatinShift: '#', keyLatin: '3'}, {keyCyrillicShift: '№', keyCyrillic:'3'}, 4],
-['Digit4', {keyLatinShift: '$', keyLatin: '4'}, {keyCyrillicShift: ';', keyCyrillic:'4'}, 5],
-['Digit5', {keyLatinShift: '%', keyLatin: '5'}, {keyCyrillicShift: '%', keyCyrillic:'5'}, 6],
-['Digit6', {keyLatinShift: '^', keyLatin: '6'}, {keyCyrillicShift: ':', keyCyrillic:'6'}, 7],
-['Digit7', {keyLatinShift: '&', keyLatin: '7'}, {keyCyrillicShift: '?', keyCyrillic:'7'}, 8],
-['Digit8', {keyLatinShift: '*', keyLatin: '8'}, {keyCyrillicShift: '*', keyCyrillic:'8'}, 9],
-['Digit9', {keyLatinShift: '(', keyLatin: '9'}, {keyCyrillicShift: '(', keyCyrillic:'9'}, 10],
-['KeyA', {keyLatinShift: 'undefine', keyLatin: 'A'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ф'}, 31],
-['KeyB', {keyLatinShift: 'undefine', keyLatin: 'B'}, {keyCyrillicShift: 'undefine', keyCyrillic:'И'}, 48],
-['KeyC', {keyLatinShift: 'undefine', keyLatin: 'C'}, {keyCyrillicShift: 'undefine', keyCyrillic:'С'}, 46],
-['KeyD', {keyLatinShift: 'undefine', keyLatin: 'D'}, {keyCyrillicShift: 'undefine', keyCyrillic:'В'}, 33],
-['KeyE', {keyLatinShift: 'undefine', keyLatin: 'E'}, {keyCyrillicShift: 'undefine', keyCyrillic:'У'}, 19],
-['KeyF', {keyLatinShift: 'undefine', keyLatin: 'F'}, {keyCyrillicShift: 'undefine', keyCyrillic:'А'}, 34],
-['KeyG', {keyLatinShift: 'undefine', keyLatin: 'G'}, {keyCyrillicShift: 'undefine', keyCyrillic:'П'}, 35],
-['KeyH', {keyLatinShift: 'undefine', keyLatin: 'H'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Р'}, 36],
-['KeyI', {keyLatinShift: 'undefine', keyLatin: 'I'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ш'}, 24],
-['KeyJ', {keyLatinShift: 'undefine', keyLatin: 'J'}, {keyCyrillicShift: 'undefine', keyCyrillic:'О'}, 37],
-['KeyK', {keyLatinShift: 'undefine', keyLatin: 'K'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Л'}, 38],
-['KeyL', {keyLatinShift: 'undefine', keyLatin: 'L'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Д'}, 39],
-['KeyM', {keyLatinShift: 'undefine', keyLatin: 'M'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ь'}, 50],
-['KeyN', {keyLatinShift: 'undefine', keyLatin: 'N'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Т'}, 49],
-['KeyO', {keyLatinShift: 'undefine', keyLatin: 'O'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Щ'}, 25],
-['KeyP', {keyLatinShift: 'undefine', keyLatin: 'P'}, {keyCyrillicShift: 'undefine', keyCyrillic:'З'}, 26],
-['KeyQ', {keyLatinShift: 'undefine', keyLatin: 'Q'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Й'}, 17],
-['KeyR', {keyLatinShift: 'undefine', keyLatin: 'R'}, {keyCyrillicShift: 'undefine', keyCyrillic:'К'}, 20],
-['KeyS', {keyLatinShift: 'undefine', keyLatin: 'S'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ы'}, 32],
-['KeyT', {keyLatinShift: 'undefine', keyLatin: 'T'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Е'}, 21],
-['KeyU', {keyLatinShift: 'undefine', keyLatin: 'U'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Г'}, 23],
-['KeyV', {keyLatinShift: 'undefine', keyLatin: 'V'}, {keyCyrillicShift: 'undefine', keyCyrillic:'М'}, 47],
-['KeyW', {keyLatinShift: 'undefine', keyLatin: 'W'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ц'}, 18],
-['KeyX', {keyLatinShift: 'undefine', keyLatin: 'X'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ч'}, 45],
-['KeyY', {keyLatinShift: 'undefine', keyLatin: 'Y'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Н'}, 22],
-['KeyZ', {keyLatinShift: 'undefine', keyLatin: 'Z'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Я'}, 44],
-['OSLeft', {keyLatinShift: 'undefine', keyLatin: 'Win'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Win'}, 57],
-['Semicolon', {keyLatinShift: ':', keyLatin: ';'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ж'}, 40],
-['Equal', {keyLatinShift: '+', keyLatin: '='}, {keyCyrillicShift: '+', keyCyrillic:'='}, 13],
-['Comma', {keyLatinShift: '<', keyLatin: ','}, {keyCyrillicShift: 'undefine', keyCyrillic:'Б'}, 51],
-['Minus', {keyLatinShift: '_', keyLatin: '-'}, {keyCyrillicShift: '_', keyCyrillic:'-'}, 12],
-['Period', {keyLatinShift: '>', keyLatin: '.'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ю'}, 52],
-['Slash', {keyLatinShift: '?', keyLatin: '/'}, {keyCyrillicShift: ',', keyCyrillic:'.'}, 53],
-['Backquote', {keyLatinShift: '~', keyLatin: '`'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ё'}, 1],
-['BracketLeft', {keyLatinShift: '{', keyLatin: '['}, {keyCyrillicShift: 'undefine', keyCyrillic:'Х'}, 27],
-['Backslash', {keyLatinShift: '|', keyLatin: '\\'}, {keyCyrillicShift: '/', keyCyrillic:'\\'}, 14],
-['BracketRight', {keyLatinShift: '}', keyLatin: ']'}, {keyCyrillicShift: 'undefine', keyCyrillic:'Ъ'}, 28],
-['Quote', {keyLatinShift: '"', keyLatin: '\''}, {keyCyrillicShift: 'undefine', keyCyrillic:'Э'}, 41],
+let arr =[];
+const arrKeyCode = [
+    ['Backspace', 15],
+    ['Tab', 16],
+    ['Enter', 42] ,
+    ['ShiftLeft', 43],
+    ['ShiftRight', 55],
+    ['ControlRight', 64],
+    ['ControlLeft', 56],
+    ['AltLeft', 58],
+    ['AltRight', 60],
+    ['CapsLock', 30],
+    ['Escape', 0],
+    ['Space', 59],
+    ['ArrowLeft', 61],
+    ['ArrowUp', 54],
+    ['ArrowRight', 63],
+    ['ArrowDown', 62],
+    ['Delete', 29],
+    ['Digit0', 11],
+    ['Digit1', 2],
+    ['Digit2', 3],
+    ['Digit3', 4],
+    ['Digit4', 5],
+    ['Digit5', 6],
+    ['Digit6', 7],
+    ['Digit7', 8],
+    ['Digit8', 9],
+    ['Digit9', 10],
+    ['KeyA', 31],
+    ['KeyB', 48],
+    ['KeyC', 46],
+    ['KeyD', 33],
+    ['KeyE', 19],
+    ['KeyF', 34],
+    ['KeyG', 35],
+    ['KeyH', 36],
+    ['KeyI', 24],
+    ['KeyJ', 37],
+    ['KeyK', 38],
+    ['KeyL', 39],
+    ['KeyM', 50],
+    ['KeyN', 49],
+    ['KeyO', 25],
+    ['KeyP', 26],
+    ['KeyQ', 17],
+    ['KeyR', 20],
+    ['KeyS', 32],
+    ['KeyT', 21],
+    ['KeyU', 23],
+    ['KeyV', 47],
+    ['KeyW', 18],
+    ['KeyX', 45],
+    ['KeyY', 22],
+    ['KeyZ', 44],
+    ['OSLeft', 57],
+    ['Semicolon', 40],
+    ['Equal', 13],
+    ['Comma', 51],
+    ['Minus', 12],
+    ['Period', 52],
+    ['Slash', 53],
+    ['Backquote', 1],
+    ['BracketLeft', 27],
+    ['Backslash',  14],
+    ['BracketRight', 28],
+    ['Quote', 41],
 ]; 
 
-function CreateElement(arr){
-    for (let [id, , , order] of arr){
+const arrKeyLatin = [
+    ['Backspace', {keyShift: 'backSpace', key: 'backSpace' }],
+    ['Tab', {keyShift: 'Tab', key: 'Tab' }],
+    ['Enter', {keyShift: 'Enter', key: 'Enter' }] ,
+    ['ShiftLeft', {keyShift: 'Shift', key:'Shift'}],
+    ['ShiftRight', {keyShift: 'Shift', key:'Shift'}],
+    ['ControlLeft',{keyShift: 'Ctrl', key:'Ctrl'}],
+    ['ControlRight', {keyShift: 'Ctrl', key:'Ctrl'}],
+    ['AltLeft', {keyShift: 'Alt', key:'Alt'}],
+    ['AltRight', {keyShift: 'Alt', key:'Alt'}],
+    ['CapsLock', {keyShift: 'Caps Lock', key:'Caps Lock'}],
+    ['Escape', {keyShift: 'Esc', key:'Esc'}],
+    ['Space', {keyShift: 'Space', key:'Space'}],
+    ['ArrowLeft', {keyShift: 'Left', key:'Left'}],
+    ['ArrowUp', {keyShift: 'Up', key:'Up'}],
+    ['ArrowRight', {keyShift: 'Right', key:"Right"}],
+    ['ArrowDown', {keyShift: 'Down', key:'Down'}],
+    ['Delete', {keyShift: 'Del', key:'Del'}],
+    ['Digit0', {keyShift: ')', key: '0'}],
+    ['Digit1', {keyShift: '!', key: '1'}],
+    ['Digit2', {keyShift: '@', key: '2'}],
+    ['Digit3', {keyShift: '#', key: '3'}],
+    ['Digit4', {keyShift: '$', key: '4'}],
+    ['Digit5', {keyShift: '%', key: '5'}],
+    ['Digit6', {keyShift: '^', key: '6'}],
+    ['Digit7', {keyShift: '&', key: '7'}],
+    ['Digit8', {keyShift: '*', key: '8'}],
+    ['Digit9', {keyShift: '(', key: '9'}],
+    ['KeyA', {keyShift: 'A', key: 'a'}],
+    ['KeyB', {keyShift: 'B', key: 'b'}],
+    ['KeyC', {keyShift: 'C', key: 'c'}],
+    ['KeyD', {keyShift: 'D', key: 'd'}],
+    ['KeyE', {keyShift: 'E', key: 'e'}],
+    ['KeyF', {keyShift: 'F', key: 'f'}],
+    ['KeyG', {keyShift: 'G', key: 'g'}],
+    ['KeyH', {keyShift: 'H', key: 'h'}],
+    ['KeyI', {keyShift: 'I', key: 'i'}],
+    ['KeyJ', {keyShift: 'J', key: 'j'}],
+    ['KeyK', {keyShift: 'K', key: 'k'}],
+    ['KeyL', {keyShift: 'L', key: 'l'}],
+    ['KeyM', {keyShift: 'M', key: 'm'}],
+    ['KeyN', {keyShift: 'N', key: 'n'}],
+    ['KeyO', {keyShift: 'O', key: 'o'}],
+    ['KeyP', {keyShift: 'P', key: 'p'}],
+    ['KeyQ', {keyShift: 'Q', key: 'q'}],
+    ['KeyR', {keyShift: 'R', key: 'r'}],
+    ['KeyS', {keyShift: 'S', key: 's'}],
+    ['KeyT', {keyShift: 'T', key: 't'}],
+    ['KeyU', {keyShift: 'U', key: 'u'}],
+    ['KeyV', {keyShift: 'V', key: 'v'}],
+    ['KeyW', {keyShift: 'W', key: 'w'}],
+    ['KeyX', {keyShift: 'X', key: 'x'}],
+    ['KeyY', {keyShift: 'Y', key: 'y'}],
+    ['KeyZ', {keyShift: 'Z', key: 'z'}],
+    ['OSLeft', {keyShift: 'Win', key: 'Win'}],
+    ['Semicolon', {keyShift: ':', key: ';'}],
+    ['Equal', {keyShift: '+', key: '='}],
+    ['Comma', {keyShift: '<', key: ','}],
+    ['Minus', {keyShift: '_', key: '-'}],
+    ['Period', {keyShift: '>', key: '.'}],
+    ['Slash', {keyShift: '?', key: '/'}],
+    ['Backquote', {keyShift: '~', key: '`'}],
+    ['BracketLeft', {keyShift: '{', key: '['}],
+    ['Backslash', {keyShift: '|', key: '\\'}],
+    ['BracketRight', {keyShift: '}', key: ']'}],
+    ['Quote', {keyShift: '"', key: '\''}],
+];
+const arrKeyCyrillic = [
+    ['Backspace', {keyShift: 'backSpace', key: 'backSpace' }],
+    ['Tab', {keyShift: 'Tab', key: 'Tab' }],
+    ['Enter', {keyShift: 'Enter', key: 'Enter' }] ,
+    ['ShiftLeft', {keyShift: 'Shift', key:'Shift'}],
+    ['ShiftRight', {keyShift: 'Shift', key:'Shift'}],
+    ['ControlLeft',{keyShift: 'Ctrl', key:'Ctrl'}],
+    ['ControlRight', {keyShift: 'Ctrl', key:'Ctrl'}],
+    ['AltLeft', {keyShift: 'Alt', key:'Alt'}],
+    ['AltRight', {keyShift: 'Alt', key:'Alt'}],
+    ['CapsLock', {keyShift: 'Caps Lock', key:'Caps Lock'}],
+    ['Escape', {keyShift: 'Esc', key:'Esc'}],
+    ['Space', {keyShift: 'Space', key:'Space'}],
+    ['ArrowLeft', {keyShift: 'Left', key:'Left'}],
+    ['ArrowUp', {keyShift: 'Up', key:'Up'}],
+    ['ArrowRight', {keyShift: 'Right', key:"Right"}],
+    ['ArrowDown', {keyShift: 'Down', key:'Down'}],
+    ['Delete', {keyShift: 'Del', key:'Del'}],
+    ['Digit0', {keyShift: ')', key:'0'}],
+    ['Digit1', {keyShift: '!', key:'1'}],
+    ['Digit2', {keyShift: '"', key:'2'}],
+    ['Digit3', {keyShift: '№', key:'3'}],
+    ['Digit4', {keyShift: ';', key:'4'}],
+    ['Digit5', {keyShift: '%', key:'5'}],
+    ['Digit6', {keyShift: ':', key:'6'}],
+    ['Digit7', {keyShift: '?', key:'7'}],
+    ['Digit8', {keyShift: '*', key:'8'}],
+    ['Digit9', {keyShift: '(', key:'9'}],
+    ['KeyA', {keyShift: 'Ф', key:'ф'}],
+    ['KeyB', {keyShift: 'И', key:'и'}],
+    ['KeyC', {keyShift: 'С', key:'с'}],
+    ['KeyD', {keyShift: 'В', key:'в'}],
+    ['KeyE', {keyShift: 'У', key:'у'}],
+    ['KeyF', {keyShift: 'А', key:'а'}],
+    ['KeyG', {keyShift: 'П', key:'п'}],
+    ['KeyH', {keyShift: 'Р', key:'р'}],
+    ['KeyI', {keyShift: 'Ш', key:'ш'}],
+    ['KeyJ', {keyShift: 'О', key:'о'}],
+    ['KeyK', {keyShift: 'Л', key:'л'}],
+    ['KeyL', {keyShift: 'Д', key:'д'}],
+    ['KeyM', {keyShift: 'Ь', key:'ь'}],
+    ['KeyN', {keyShift: 'Т', key:'т'}],
+    ['KeyO', {keyShift: 'Щ', key:'ш'}],
+    ['KeyP', {keyShift: 'З', key:'з'}],
+    ['KeyQ', {keyShift: 'Й', key:'й'}],
+    ['KeyR', {keyShift: 'К', key:'к'}],
+    ['KeyS', {keyShift: 'Ы', key:'ы'}],
+    ['KeyT', {keyShift: 'Е', key:'е'}],
+    ['KeyU', {keyShift: 'Г', key:'г'}],
+    ['KeyV', {keyShift: 'М', key:'м'}],
+    ['KeyW', {keyShift: 'Ц', key:'ц'}],
+    ['KeyX', {keyShift: 'Ч', key:'ч'}],
+    ['KeyY', {keyShift: 'Н', key:'н'}],
+    ['KeyZ', {keyShift: 'Я', key:'я'}],
+    ['OSLeft', {keyShift: 'Win', key:'Win'}],
+    ['Semicolon', {keyShift: 'Ж', key:'ж'}],
+    ['Equal', {keyShift: '+', key:'='}],
+    ['Comma', {keyShift: 'Б', key:'б'}],
+    ['Minus', {keyShift: '_', key:'-'}],
+    ['Period', {keyShift:'Ю', key:'ю'}],
+    ['Slash', {keyShift: ',', key:'.'}],
+    ['Backquote', {keyShift: 'Ё', key:'ё'}],
+    ['BracketLeft', {keyShift: 'Х', key:'х'}],
+    ['Backslash', {keyShift: '/', key:'\\'}],
+    ['BracketRight', {keyShift: 'Ъ', key:'ъ'}],
+    ['Quote', {keyShift: 'Э', key:'э'}],
+];
+const arrSpecKey = ['Backspace', 'Tab', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'ControlRight', 'AltLeft', 'AltRight', 'CapsLock', 'Escape', 'OSLeft', 'Space', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'Delete'];
+
+function CreateElement(arrKeyCode){
+    for (let [id, order] of arrKeyCode){
         let elemKeyboard = document.createElement('button');
         [elemKeyboard.id, elemKeyboard.style.order] = [id,order];
         elemKeyboard.className = "key alphabet latin";
         document.querySelector("body > .container").append(elemKeyboard);         
     }
 }
-let keybutton = new CreateElement(arr);
+let keybutton = new CreateElement(arrKeyCode);
 
 function createInnerHTML(arr){
-    for (let [id, {keyLatinShift, keyLatin}, {keyCyrillicShift, keyCyrillic}, ] of arr){
-        let elemKeyboard = document.getElementById(id);
-        if (language == 'en') {
-            if (keyLatinShift == 'undefine') {
-                elemKeyboard.innerHTML = keyLatin;
-            } else{
-                elemKeyboard.classList.add("key_container");
-                elemKeyboard.innerHTML = `<p>${keyLatinShift}</p><p>${keyLatin}</p>`;
-            }   
-        } else {
-            if (keyCyrillicShift == 'undefine') {
-                elemKeyboard.classList.remove("key_container");
-                elemKeyboard.innerHTML = keyCyrillic;
-            } else{
-                elemKeyboard.classList.add("key_container");
-                elemKeyboard.innerHTML = `<p>${keyCyrillicShift}</p><p>${keyCyrillic}</p>`;
-            }
-        }            
+    if (language == 'en'){
+        arr = arrKeyLatin;
+    } else {
+        arr = arrKeyCyrillic;
     }
+    for (let [id, {keyShift, key}] of arr){
+        let elemKeyboard = document.getElementById(id);
+        elemKeyboard.innerHTML = `<p class = "shift">${keyShift}</p><p class = "unshift">${key}</p>`;
+        //document.querySelectorAll("body > section.container> button > p").forEach(p => p.classList.add('alphabet');         
+    }
+    
 }
 let inner = createInnerHTML(arr);
 
@@ -146,6 +287,7 @@ const keyupActiv = (event) => {
 document.addEventListener('keydown', keydownActiv);
 document.addEventListener('keyup', keyupActiv);
 
+
 document.addEventListener('keydown', (event)=>{    
     if (event.ctrlKey && event.key === "Shift"){        
         console.log('!!' +language);
@@ -158,8 +300,100 @@ document.addEventListener('keydown', (event)=>{
     }
     console.log(language);
     document.querySelector("body > section.inf-area > pre > p").innerHTML = ` ${language.toUpperCase()}.`;
-    createInnerHTML(arr); 
+    createInnerHTML(arr);
+    visualKeyLayout (); 
 });
+
+function visualKeyLayout (){
+    //console.log(`step ${step}`, document.querySelectorAll("body > section.container> button > p.shift"));
+
+    document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('hidden'));
+    
+}
+visualKeyLayout ();
+
+document.addEventListener('keydown', (event)=>{
+    if (event.shiftKey === true && event.ctrlKey === false){
+        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('hidden'));        
+    } /*else {
+        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('hidden'));
+        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.remove('hidden'));
+    }*/
+});
+
+document.addEventListener('keyup', (event)=>{
+    if (event.key === "Shift" && event.ctrlKey === false){
+        /*document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('hidden'));        
+    } else {*/
+        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('hidden'));
+        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.remove('hidden'));
+    }
+});
+
+
+
+/*const infoLogger = (event) =>{
+    console.log(`step ${step}`, event);
+    console.log(`step ${step}`, event.target);
+    console.log(`step ${step}`, event.target.value)
+    console.log(`step ${step}`, event.type);
+    console.log(`step ${step}`, event.code);
+    console.log(`step ${step}`, event.which);
+    console.log(`step ${step}`, event.key);
+}
+document.querySelector("body > section.container").addEventListener('click',infoLogger);
+document.querySelector("body > section.container").addEventListener('mousedown',infoLogger);
+document.querySelector("body > section.container").addEventListener('mouseup',infoLogger);
+document.querySelector("body > section.container").addEventListener('keydown',infoLogger);
+document.querySelector("body > section.container").addEventListener('keyup',infoLogger);
+document.querySelector("body > section.container").addEventListener(Event,infoLogger);
+document.querySelector("body > section.container").addEventListener('input',infoLogger);*/
+
+function inputeТext (event) {
+    if (arrSpecKey.find((item) => event.code == item)){
+        switch(event.key) {
+             
+        }
+
+    } else {
+        /*if (language == 'en') {
+            let [id, {keyShift, key}] =  
+        }*/
+        document.querySelectorAll("#event.code > p").innerText;
+        //document.querySelector("#KeyQ > p.shift.hidden")
+        document.getElementById(event.code)
+               
+    console.log(`step ${step}`, event.code);
+    console.log(`step ${step}`, document.getElementById(event.code));
+    console.log(`step ${step}`, event.key);
+        textarea.value += event.key;
+        textarea.selectionStart = textarea.selectionEnd = textarea.value.length;     
+    } 
+}
+
+document.addEventListener('keydown', (event)=>{
+    console.log(`step ${step}`, event);
+    inputeТext (event);
+});
+
+document.querySelector("body > section.container").addEventListener('click', (event)=>{
+    
+    inputeТext (event);
+});
+
+/*document.addEventListener('input', (event)=>{
+    //console.log()
+    console.log(`step ${step}`, event.target);
+    console.log(`step ${step}`, event.type);
+    console.log(`step ${step}`, event.code);
+    console.log(`step ${step}`, event.which);
+    console.log(`step ${step}`, event.key);
+    document.querySelector("body > textarea").innerHTML = input.value;
+});*/
+
+
 
 //keyboard.addEventListener('click', keypressActiv);
 
@@ -191,16 +425,3 @@ document.addEventListener('keydown', (event)=>{
    console.log(event.target.children[0]);
    
 */
-
-
-/*function CreateElement(nameL, nameK, eventwhich){
-    let button = document.createElement('button');    
-    button.id = eventwhich;
-    button.className = "container key alphabet latin";    
-    button.innerText = `${nameL} ${nameK}`;    
-    document.body.append(button);  
-    
-}
-
-let keybutton = CreateElement('a', 'ф', 65);*/
-
