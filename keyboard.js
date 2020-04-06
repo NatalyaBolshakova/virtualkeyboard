@@ -222,7 +222,7 @@ const arrKeyCyrillic = [
     ['KeyL', {keyShift: 'Д', key:'д'}],
     ['KeyM', {keyShift: 'Ь', key:'ь'}],
     ['KeyN', {keyShift: 'Т', key:'т'}],
-    ['KeyO', {keyShift: 'Щ', key:'ш'}],
+    ['KeyO', {keyShift: 'Щ', key:'щ'}],
     ['KeyP', {keyShift: 'З', key:'з'}],
     ['KeyQ', {keyShift: 'Й', key:'й'}],
     ['KeyR', {keyShift: 'К', key:'к'}],
@@ -269,8 +269,7 @@ function createInnerHTML(arr){
         let elemKeyboard = document.getElementById(id);
         elemKeyboard.innerHTML = `<p class = "shift">${keyShift}</p><p class = "unshift">${key}</p>`;
         //document.querySelectorAll("body > section.container> button > p").forEach(p => p.classList.add('alphabet');         
-    }
-    
+    }    
 }
 let inner = createInnerHTML(arr);
 
@@ -287,6 +286,23 @@ const keyupActiv = (event) => {
 document.addEventListener('keydown', keydownActiv);
 document.addEventListener('keyup', keyupActiv);
 
+const mousedownActiv = (event) => {
+    if (event.target.parentElement.tagName === 'BUTTON'){
+        event.target.parentElement.classList.add('active');          
+    } else {
+        if (event.target.tagName === 'BUTTON'){
+            event.target.classList.add('active');             
+        }
+    }
+}
+
+const mouseupActiv = (event) => {       
+    event.target.classList.remove('active');            
+    event.target.parentElement.classList.remove('active'); 
+}
+
+document.addEventListener('mousedown', mousedownActiv);
+document.addEventListener('mouseup', mouseupActiv);
 
 document.addEventListener('keydown', (event)=>{    
     if (event.ctrlKey && event.key === "Shift"){        
@@ -305,33 +321,61 @@ document.addEventListener('keydown', (event)=>{
 });
 
 function visualKeyLayout (){
-    //console.log(`step ${step}`, document.querySelectorAll("body > section.container> button > p.shift"));
-
     document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('hidden'));
-    
+    document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('visual'));    
 }
 visualKeyLayout ();
 
 document.addEventListener('keydown', (event)=>{
     if (event.shiftKey === true && event.ctrlKey === false){
         document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('hidden'));        
-    } /*else {
-        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.remove('hidden'));
-    }*/
+        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('hidden')); 
+        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('visual'));
+        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.remove('visual'));       
+    } 
 });
 
 document.addEventListener('keyup', (event)=>{
     if (event.key === "Shift" && event.ctrlKey === false){
-        /*document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('hidden'));        
-    } else {*/
         document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('hidden'));
         document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.remove('visual'));
+        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('visual'));
     }
 });
 
+function inputeТextKey (event) {
+    if (arrSpecKey.find((item) => event.code == item)){
+        switch(event.key) {
+             
+        }
+
+    } else {   
+        textarea.value += document.querySelector(`#${event.code} > p.visual`).innerText;           
+        textarea.selectionStart = textarea.selectionEnd = textarea.value.length; 
+    } 
+}
+
+function inputeТextMouse (event) {
+    if (event.target.parentElement.tagName === 'BUTTON'){
+        if (arrSpecKey.find((item) => event.target.parentElement.id == item)){
+            switch(event.key) {
+                 
+            }
+        } else {  
+            textarea.value += event.target.innerText;           
+            textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
+        }
+    }
+}
+
+document.addEventListener('keydown', (event)=>{    
+    inputeТextKey (event);
+});
+
+document.querySelector("body > section.container").addEventListener('mousedown', (event)=>{    
+    inputeТextMouse (event);
+});
 
 
 /*const infoLogger = (event) =>{
@@ -350,38 +394,6 @@ document.querySelector("body > section.container").addEventListener('keydown',in
 document.querySelector("body > section.container").addEventListener('keyup',infoLogger);
 document.querySelector("body > section.container").addEventListener(Event,infoLogger);
 document.querySelector("body > section.container").addEventListener('input',infoLogger);*/
-
-function inputeТext (event) {
-    if (arrSpecKey.find((item) => event.code == item)){
-        switch(event.key) {
-             
-        }
-
-    } else {
-        /*if (language == 'en') {
-            let [id, {keyShift, key}] =  
-        }*/
-        document.querySelectorAll("#event.code > p").innerText;
-        //document.querySelector("#KeyQ > p.shift.hidden")
-        document.getElementById(event.code)
-               
-    console.log(`step ${step}`, event.code);
-    console.log(`step ${step}`, document.getElementById(event.code));
-    console.log(`step ${step}`, event.key);
-        textarea.value += event.key;
-        textarea.selectionStart = textarea.selectionEnd = textarea.value.length;     
-    } 
-}
-
-document.addEventListener('keydown', (event)=>{
-    console.log(`step ${step}`, event);
-    inputeТext (event);
-});
-
-document.querySelector("body > section.container").addEventListener('click', (event)=>{
-    
-    inputeТext (event);
-});
 
 /*document.addEventListener('input', (event)=>{
     //console.log()
