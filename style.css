@@ -7,21 +7,16 @@ body {
     height: calc(100vh/4);
     margin-top: 20px;
     margin-bottom: 40px;
-    border: 2px solid #50485c;
+    border: 2px solid #5f4392;
     font-size: 12px;
     line-height: 22px;  
     
-}
-
-.pre {
-    /*white-space: nowrap;*/
 }
 
 .pre>p {
     display: inline-block;
     
 }
-
 
 .container {
     display: flex;
@@ -34,7 +29,6 @@ body {
 
 .key {
     width: calc(100%/20);
-    /*max-width: 45px;*/
     min-height: 45px;
     margin: 3px;
     border-radius: 10px;
@@ -42,21 +36,20 @@ body {
     padding: 3px;
     line-height: 19px;
     font-size: 1.07rem;
-
-    /*box-shadow: 2px;*/
+    display: inline-block;
+    background-color: #f8f6ff;
+    color: #535369;   
+    box-shadow: inset 0px 0px 5px rgba(117, 118, 119, 0.5), 2px 2px 5px rgb(50, 41, 73);
+    transition: background-color 100ms linear 0s;
+    -webkit-transition: background-color 100ms linear 0s;
+    -ms-transition: background-color 100ms linear 0s;
+    transition: color 100ms linear 0s;
+    -webkit-transition: color 100ms linear 0s;
+    -ms-transition: color 100ms linear 0s;
 }
 
 .bigkey {
-    width: calc(100%/10);
-    /*max-width: 45px;
-    min-height: 45px;
-    margin: 3px;
-    border-radius: 10px;
-    outline: none;
-    padding: 3px;
-    line-height: 19px;
-    font-size: 1.07rem;*/
-    /*box-shadow: 2px;*/
+    width: calc(100%/10);    
 }
 
 #Space {
@@ -67,8 +60,14 @@ body {
     width: calc(100%/14); 
 }
 
-.active {
+.active {    
     background-color: #737392;
+    color: #ccc7fc;
+    transform: translateX(1px) translateY(1px);
+    box-shadow: inset 2px 2px 1px rgba(46, 40, 61, 0.5), 2px 2px 5px rgb(50, 41, 73);
+    transition: all 100ms linear 0s;
+    -webkit-transition: all 100ms linear 0s;
+    -ms-transition: all 100ms linear 0s;
 }
 
 .hidden {
@@ -83,34 +82,8 @@ body {
     justify-content: center;
 }
 
-/*.key_container>p {
-    width: 100%;
-    margin: 0;
-}
-
-.key_container>p:first-child {
-    text-align: left;
-    line-height: 12px;
-    margin-left: 4px;
-}
-
-.key_container>p:last-child {
-    line-height: 19px;
-    font-size: 1.07rem;
-    margin-left: 3px;
-}
-*/
-.alphabet {
-    
-}
-
 .alphabet>p {
     margin: 0;
-}
-.latin {
-
-}
-
-.cyrillic {
-      
+    min-height: 30px;
+    padding-top: 8px;    
 }

@@ -11,15 +11,12 @@ document.body.append(header);
 let textarea = document.createElement('textarea');
 textarea.setAttribute('autofocus', '');
 textarea.setAttribute('name', 'inputetext');
-/*textarea.focus();
-textarea.selectionStart = textarea.value.length;*/
 
 textarea.className = "areatext";
 document.body.append(textarea);
 
 let identifyLanguage = () => {
-    let lang = localStorage.getItem('language');
-    console.log('!' + lang);
+    let lang = localStorage.getItem('language');    
     if (lang == null){
         lang = 'en';
         localStorage.setItem('language', lang);        
@@ -56,16 +53,6 @@ document.querySelector("body > section.container").append(stringFour);
 let stringFive = document.createElement('div');
 stringFive.className = "key_container stringFive";
 document.querySelector("body > section.container").append(stringFive);
-
-
-/*function KeyboardString(tag, class){
-    this.name = tag;
-    document.createElement(this.name);
-    this.className = class;
-    document.body.keyboard.append(this);
-}
-
-let stringOne = new KeyboardString ('div', 'stringOne');*/
 
 let arr =[];
 const arrKeyCode = [
@@ -276,7 +263,7 @@ function CreateElement(arrKeyCode){
     for (let [id, order] of arrKeyCode){
         let elemKeyboard = document.createElement('button');
         [elemKeyboard.id, elemKeyboard.style.order] = [id,order];
-        elemKeyboard.className = "key alphabet latin";
+        elemKeyboard.className = "key alphabet";
         if (arrSpecKey.find((item) => id == item)){ 
             elemKeyboard.className +=" bigkey";
         } 
@@ -294,9 +281,7 @@ function CreateElement(arrKeyCode){
         }
         if (order >= 56){
             document.querySelector("body > section.container > div.stringFive").append(elemKeyboard);
-        }
-
-        //document.querySelector("body > .container").append(elemKeyboard);         
+        }       
     }
 }
 let keybutton = new CreateElement(arrKeyCode);
@@ -314,34 +299,23 @@ function createInnerHTML(arr){
             elemKeyboard.innerHTML = `<p class = "shift capslock">${keyShift}</p><p class = "unshift capslock">${key}</p>`;
         } else {
             elemKeyboard.innerHTML = `<p class = "shift">${keyShift}</p><p class = "unshift">${key}</p>`;
-        }
-        //document.querySelectorAll("body > section.container> button > p").forEach(p => p.classList.add('alphabet');         
+        }     
     }    
 }
 let inner = createInnerHTML(arr);
 
 const keydownActiv = (event) => {
-    /*if (event.code === 'MetaLeft'){
-        event.stopPropagation();
-    }*/
-    //event.preventDefault();
-
     document.getElementById(event.code).classList.add('active');        
 }
 
 const keyupActiv = (event) => { 
-    //event.preventDefault();
     document.getElementById(event.code).classList.remove('active'); 
 }
 
 const mousedownActiv = (event) => {
     if (event.target.parentElement.tagName === 'BUTTON'){
         event.target.parentElement.classList.add('active');          
-    } /*else {
-        if (event.target.tagName === 'BUTTON'){
-            event.target.classList.add('active');             
-        }
-    }*/
+    }       
 }
 
 const mouseupActiv = (event) => {       
@@ -350,8 +324,7 @@ const mouseupActiv = (event) => {
 }
 
 const changeLanguage = (event)=>{    
-    if (event.ctrlKey && event.key === "Shift"){        
-        console.log('!!' +language);
+    if (event.ctrlKey && event.key === "Shift"){ 
         if (language == 'en'){
             language = 'ru';
         } else {
@@ -359,9 +332,7 @@ const changeLanguage = (event)=>{
         }
         localStorage.setItem('language', language);
     }
-    console.log(language);
-    document.querySelector("body > section.inf-area > pre > p:nth-child(2)").innerHTML = ` ${language.toUpperCase()}`;
-    
+    document.querySelector("body > section.inf-area > pre > p:nth-child(2)").innerHTML = ` ${language.toUpperCase()}`;    
     createInnerHTML(arr);
     visualKeyLayout (); 
 };
@@ -381,7 +352,8 @@ function visualKeyLayout (){
         document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
         document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
         document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
-    }}
+    }
+}
 visualKeyLayout ();
 
 const keydownOnHidden = (event)=>{
@@ -494,21 +466,10 @@ function inputeТextKey (event) {
                 let pos = textarea.selectionEnd;               
                 let prevLine = textarea.value.lastIndexOf('\n', pos);
                 let nextLineEnter = textarea.value.indexOf('\n', pos + 1);
-                let nextLine = textarea.value.slice(pos + 1, pos + 2);
-                console.log('"0"' + textarea.minLength);
-                console.log('"0"' + textarea.selectionEnd);
-                console.log(`"1" + ${textarea.selectionEnd+1}`);
-                console.log(`"2" + ${textarea.selectionEnd+2}`);
-                console.log(pos, prevLine, nextLineEnter, nextLine);
-                //6 6 10 "ы"
-                //5 -1 6 ""
-                //if (prevLine)
+                let nextLine = textarea.value.slice(pos + 1, pos + 2);                
                 if (nextLineEnter != -1 || nextLine != '') {
-
                     pos = pos - prevLine;
-                    console.log(!pos);
                     textarea.selectionStart = textarea.selectionEnd = nextLineEnter + pos;
-                    console.log(!!textarea.selectionStart);
                 }
                 break;
                 case 'ArrowUp':
@@ -572,31 +533,22 @@ function inputeТextMouse (event) {
                     let pos = textarea.selectionEnd;                        
                     let prevLine = textarea.value.lastIndexOf('\n', pos);
                     let nextLineEnter = textarea.value.indexOf('\n', pos + 1);
-                    let nextLine = textarea.value.slice(pos + 1, pos + 2);
-                    console.log('"0"' + textarea.minLength);
-                    console.log('"0"' + textarea.selectionEnd);
-                    console.log(`"1" + ${textarea.selectionEnd+1}`);
-                    console.log(`"2" + ${textarea.selectionEnd+2}`);
-                    console.log(pos, prevLine, nextLineEnter, nextLine);
-                    //6 6 10 "ы"
-                    //5 -1 6 ""
-                    //if (prevLine)
+                    let nextLine = textarea.value.slice(pos + 1, pos + 2);                   
                     if (nextLineEnter != -1 || nextLine != '') {
                                     pos = pos - prevLine;
-                        console.log(!pos);
                         textarea.selectionStart = textarea.selectionEnd = nextLineEnter + pos;
-                        console.log(!!textarea.selectionStart);
                     }
                     break;
                 case 'ArrowUp':
                     let posup = textarea.selectionEnd;
                     let prevLineup = textarea.value.lastIndexOf('\n', posup);
                     let TwoBLine = textarea.value.lastIndexOf('\n', prevLineup - 1);
-                    if (prevLineup === -1) return;
-                    posup = posup - prevLineup;
-                    textarea.selectionStart = textarea.selectionEnd = TwoBLine + posup;
+                    if (prevLineup != -1) {
+                        posup = posup - prevLineup;
+                        textarea.selectionStart = textarea.selectionEnd = TwoBLine + posup;
+                    } 
                     break;
-                }
+            }
         } else {
             textarea.setRangeText(event.target.innerText, textarea.selectionStart, textarea.selectionEnd, "end");            
             textarea.focus();
@@ -619,7 +571,6 @@ document.addEventListener('keyup', (event)=>{
         keyupActiv(event);
         keyupOnHidden(event);
         keydownOnCapsLock(event);
-        
     }
 });
 
@@ -632,65 +583,3 @@ document.querySelector("body > section.container").addEventListener('mouseup', (
     mouseupActiv(event);
     mouseOnCapsLock(event);
 });
-
-
-
-/*const infoLogger = (event) =>{
-    console.log(`step ${step}`, event);
-    console.log(`step ${step}`, event.target);
-    console.log(`step ${step}`, event.target.value)
-    console.log(`step ${step}`, event.type);
-    console.log(`step ${step}`, event.code);
-    console.log(`step ${step}`, event.which);
-    console.log(`step ${step}`, event.key);
-}
-document.querySelector("body > section.container").addEventListener('click',infoLogger);
-document.querySelector("body > section.container").addEventListener('mousedown',infoLogger);
-document.querySelector("body > section.container").addEventListener('mouseup',infoLogger);
-document.querySelector("body > section.container").addEventListener('keydown',infoLogger);
-document.querySelector("body > section.container").addEventListener('keyup',infoLogger);
-document.querySelector("body > section.container").addEventListener(Event,infoLogger);
-document.querySelector("body > section.container").addEventListener('input',infoLogger);*/
-
-/*document.addEventListener('input', (event)=>{
-    //console.log()
-    console.log(`step ${step}`, event.target);
-    console.log(`step ${step}`, event.type);
-    console.log(`step ${step}`, event.code);
-    console.log(`step ${step}`, event.which);
-    console.log(`step ${step}`, event.key);
-    document.querySelector("body > textarea").innerHTML = input.value;
-});*/
-
-
-
-//keyboard.addEventListener('click', keypressActiv);
-
-/*const selectButton = (event) => {     
-    const arrPicture = document.querySelectorAll('.container_portfolio>img');    
-   if (event.target.classList.contains('button_active') == false & event.target.tagName === 'BUTTON') {
-        document.querySelectorAll('.container_button>button').forEach(button => button.classList.remove('button_active'));
-        event.target.classList.add('button_active');
-        Picture.append(arrPicture[0]);
-        //arrPicture[arrPicture.length-1].after(arrPicture[0]);
-       // document.querySelectorAll('.container_portfolio>img').forEach(img => img.style.order = Math.floor(Math.random() * document.querySelectorAll('.container_portfolio>img').length));         
-    }
-}*/
-// document.querySelector("body > section")
-
-
-/*
-    step++;
-    
-    console.log(`step ${step}`, event.type);
-    console.log(`step ${step}`, event.code);
-    console.log(`step ${step}`, event.which);
-    console.log(`step ${step}`, event.key);
-    console.log(`step ${step}`, document.getElementById(event.which));
-    console.log(`step ${step}`, event.target);
-    console.log(`step ${step}`, event.currentTarget);
-   console.log(`step ${step}`, event.target.parentElement);
-   console.log(`step ${step}`, event.currentTarget.parentElement);
-   console.log(event.target.children[0]);
-   
-*/
