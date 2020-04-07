@@ -16,14 +16,6 @@ textarea.selectionStart = textarea.value.length;*/
 
 textarea.className = "areatext";
 document.body.append(textarea);
-/*let textarea = {
-    'autofocus': ' ',
-    'class':"areatext",
-    let textar = document.createElement('textarea'),
-    //appendElem() {document.body.append(textarea)},
-}
-document.body.append(textarea);*/
- 
 
 let identifyLanguage = () => {
     let lang = localStorage.getItem('language');
@@ -44,6 +36,36 @@ document.body.append(infArea);
 let keyboard = document.createElement('section');
 keyboard.className = "container";
 document.body.append(keyboard);
+
+let stringOne = document.createElement('div');
+stringOne.className = "key_container stringOne";
+document.querySelector("body > section.container").append(stringOne);
+
+let stringSecond = document.createElement('div');
+stringSecond.className = "key_container stringSecond";
+document.querySelector("body > section.container").append(stringSecond);
+
+let stringThird = document.createElement('div');
+stringThird.className = "key_container stringThird";
+document.querySelector("body > section.container").append(stringThird);
+
+let stringFour = document.createElement('div');
+stringFour.className = "key_container stringFour";
+document.querySelector("body > section.container").append(stringFour);
+
+let stringFive = document.createElement('div');
+stringFive.className = "key_container stringFive";
+document.querySelector("body > section.container").append(stringFive);
+
+
+/*function KeyboardString(tag, class){
+    this.name = tag;
+    document.createElement(this.name);
+    this.className = class;
+    document.body.keyboard.append(this);
+}
+
+let stringOne = new KeyboardString ('div', 'stringOne');*/
 
 let arr =[];
 const arrKeyCode = [
@@ -254,8 +276,27 @@ function CreateElement(arrKeyCode){
     for (let [id, order] of arrKeyCode){
         let elemKeyboard = document.createElement('button');
         [elemKeyboard.id, elemKeyboard.style.order] = [id,order];
-        elemKeyboard.className = "key alphabet latin";             
-        document.querySelector("body > .container").append(elemKeyboard);         
+        elemKeyboard.className = "key alphabet latin";
+        if (arrSpecKey.find((item) => id == item)){ 
+            elemKeyboard.className +=" bigkey";
+        } 
+        if (order >= 0 & order <= 15){
+            document.querySelector("body > section.container > div.stringOne").append(elemKeyboard);
+        }
+        if (order >= 16 & order <= 29){
+            document.querySelector("body > section.container > div.stringSecond").append(elemKeyboard);
+        }
+        if (order >= 30 & order <= 42){
+            document.querySelector("body > section.container > div.stringThird").append(elemKeyboard);
+        }
+        if (order >= 43 & order <=55){
+            document.querySelector("body > section.container > div.stringFour").append(elemKeyboard);
+        }
+        if (order >= 56){
+            document.querySelector("body > section.container > div.stringFive").append(elemKeyboard);
+        }
+
+        //document.querySelector("body > .container").append(elemKeyboard);         
     }
 }
 let keybutton = new CreateElement(arrKeyCode);
@@ -327,110 +368,92 @@ const changeLanguage = (event)=>{
 
 function visualKeyLayout (){
     if (capsLockDown != 'CapsLock'){
-        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.remove('visual'));
-        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('visual'));    
-    } else {
-        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.add('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.shift").forEach(shift => shift.classList.remove('visual'));
-        document.querySelectorAll("body > section.container> button > p.unshift").forEach(shift => shift.classList.add('visual'));
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.add('visual'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
-    }
-}
+        document.querySelectorAll("p.shift").forEach(shift => shift.classList.add('hidden'));
+        document.querySelectorAll("p.unshift").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("p.shift").forEach(shift => shift.classList.remove('visual'));
+        document.querySelectorAll("p.unshift").forEach(shift => shift.classList.add('visual'));    
+    } else {  
+        document.querySelectorAll("p.shift").forEach(shift => shift.classList.add('hidden'));
+        document.querySelectorAll("p.unshift").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("p.shift").forEach(shift => shift.classList.remove('visual'));
+        document.querySelectorAll("p.unshift").forEach(shift => shift.classList.add('visual'));
+        document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.add('visual'));
+        document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
+        document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
+    }}
 visualKeyLayout ();
 
 const keydownOnHidden = (event)=>{
     if (event.shiftKey === true && event.ctrlKey === false){
-        document.querySelectorAll("body > section.container> button > p:nth-child(1)").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p:nth-child(2)").forEach(unshift => unshift.classList.add('hidden')); 
-        document.querySelectorAll("body > section.container> button > p:nth-child(1)").forEach(shift => shift.classList.add('visual'));
-        document.querySelectorAll("body > section.container> button > p:nth-child(2)").forEach(unshift => unshift.classList.remove('visual'));       
+        document.querySelectorAll("p.shift").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("p.unshift").forEach(unshift => unshift.classList.add('hidden')); 
+        document.querySelectorAll("p.shift").forEach(shift => shift.classList.add('visual'));
+        document.querySelectorAll("p.unshift").forEach(unshift => unshift.classList.remove('visual'));       
     } 
 };
 
 const keyupOnHidden = (event)=>{
     if (event.key === "Shift" && event.ctrlKey === false){
-        document.querySelectorAll("body > section.container> button > p:nth-child(1)").forEach(shift => shift.classList.add('hidden'));
-        document.querySelectorAll("body > section.container> button > p:nth-child(2)").forEach(unshift => unshift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p:nth-child(1)").forEach(shift => shift.classList.remove('visual'));
-        document.querySelectorAll("body > section.container> button > p:nth-child(2)").forEach(unshift => unshift.classList.add('visual'));       
+        document.querySelectorAll("p.shift").forEach(shift => shift.classList.add('hidden'));
+        document.querySelectorAll("p.unshift").forEach(unshift => unshift.classList.remove('hidden'));
+        document.querySelectorAll("p.shift").forEach(shift => shift.classList.remove('visual'));
+        document.querySelectorAll("p.unshift").forEach(unshift => unshift.classList.add('visual'));       
     }
 };
 
-let count;
 const keydownOnCapsLock = (event) => {    
-        if (event.code === "CapsLock" && capsLockDown === 'NO' ){
-            console.log(event);
-            console.log(capsLockDown);
+        if (event.code === "CapsLock" && capsLockDown === 'NO' ){            
             capsLockDown = 'CapsLock';
             document.querySelector("body > section.inf-area > pre > p:nth-child(1)").innerHTML = ` ${capsLockDown}`;
-            document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.add('visual'));
-            document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
-            document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
-            document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
+            document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.add('visual'));
+            document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
+            document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
+            document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
             
+        } else {
+            if (event.code === "CapsLock" && capsLockDown === 'CapsLock'){                
+                capsLockDown = 'NO';        
+                document.querySelector("body > section.inf-area > pre > p:nth-child(1)").innerHTML = ` ${capsLockDown}`;
+                document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.add('hidden'));
+                document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.remove('hidden'));
+                document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.remove('visual'));
+                document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.add('visual'));
+            }        
         }
-        if (event.code != "CapsLock" && capsLockDown === 'CapsLock' ){
-            console.log(event);
-            console.log(capsLockDown);
-            //capsLockDown = 'CapsLock';
-            //document.querySelector("body > section.inf-area > pre > p:nth-child(1)").innerHTML = ` ${capsLockDown}`;
-            document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.add('visual'));
-            document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
-            document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
-            document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
-        } 
-        count +=1;
+        if (event.code != "CapsLock" && capsLockDown === 'CapsLock' ){            
+            document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.add('visual'));
+            document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
+            document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
+            document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
+        }         
 };
 
-const keydownUpCapsLock = (event) => {    
-    if (event.code === "CapsLock" && capsLockDown === 'CapsLock'){
-        console.log(event);
-        console.log(capsLockDown);
-        capsLockDown = 'NO';        
+const mouseOnCapsLock = (event) => {    
+    if (event.target.parentElement.id === "CapsLock" && capsLockDown === 'NO' ){            
+        capsLockDown = 'CapsLock';
         document.querySelector("body > section.inf-area > pre > p:nth-child(1)").innerHTML = ` ${capsLockDown}`;
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.add('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.remove('visual'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.add('visual'));
-    }
-    /*if (event.code != "CapsLock" && capsLockDown === 'CapsLock' ){
-        console.log(event);
-        console.log(capsLockDown);
-        //capsLockDown = 'CapsLock';
-        //document.querySelector("body > section.inf-area > pre > p:nth-child(1)").innerHTML = ` ${capsLockDown}`;
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.add('visual'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
-    }
-    if (event.code === "CapsLock" && capsLockDown === 'CapsLock' ){
-        console.log(capsLockDown);
-        capsLockDown = 'NO';
-        console.log(event);
-        document.querySelector("body > section.inf-area > pre > p:nth-child(1)").innerHTML = ` ${capsLockDown}`;
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.add('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.remove('visual'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.add('visual'));
-    }
-    /*if (event.code != "CapsLock" && capsLockDown === 'NO' && event.ctrlKey === false && event.key != "Shift"){
-        console.log(`1${event}`);*/
+        document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.add('visual'));
+        document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
+        document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
         
-        /*
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.add('visual'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
-        document.querySelectorAll("body > section.container> button > p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
-        document.querySelectorAll("body > section.container> button > p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));*/
-   // }
-
-
-    
+    } else {
+        if (event.target.parentElement.id === "CapsLock" && capsLockDown === 'CapsLock'){                
+            capsLockDown = 'NO';        
+            document.querySelector("body > section.inf-area > pre > p:nth-child(1)").innerHTML = ` ${capsLockDown}`;
+            document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.add('hidden'));
+            document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.remove('hidden'));
+            document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.remove('visual'));
+            document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.add('visual'));
+        }        
+    }
+    if (event.target.parentElement.id != "CapsLock" && capsLockDown === 'CapsLock' ){            
+        document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.add('visual'));
+        document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.remove('visual'));
+        document.querySelectorAll("p.shift.capslock").forEach(shift => shift.classList.remove('hidden'));
+        document.querySelectorAll("p.unshift.capslock").forEach(shift => shift.classList.add('hidden'));
+    }         
 };
 
 function inputeТextKey (event) {
@@ -587,9 +610,7 @@ document.addEventListener('keydown', (event)=>{
         keydownActiv(event); 
         changeLanguage(event);
         keydownOnHidden(event);
-        inputeТextKey (event);
-        keydownUpCapsLock(event);
-        
+        inputeТextKey (event);        
     }
 });
 
@@ -602,13 +623,6 @@ document.addEventListener('keyup', (event)=>{
     }
 });
 
-/*document.addEventListener('keypress', (event)=>{
-    if (arrKeyCode.find((item) => event.code == item[0, 0])){        
-        
-        
-    }
-});*/
-
 document.querySelector("body > section.container").addEventListener('mousedown', (event)=>{    
     mousedownActiv(event);
     inputeТextMouse (event);
@@ -616,6 +630,7 @@ document.querySelector("body > section.container").addEventListener('mousedown',
 
 document.querySelector("body > section.container").addEventListener('mouseup', (event) => {
     mouseupActiv(event);
+    mouseOnCapsLock(event);
 });
 
 

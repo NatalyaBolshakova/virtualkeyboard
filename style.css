@@ -1,9 +1,9 @@
 body {
     margin: 0 auto;
-    width: calc(100vw/2 + 25%);
+    max-width: 1020px;
 }
 .areatext {
-    width: inherit;
+    width: 100%;
     height: calc(100vh/4);
     margin-top: 20px;
     margin-bottom: 40px;
@@ -29,11 +29,12 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     background-color: #bbb3c7;
+
 }
 
 .key {
-    width: calc(100%/16);
-    max-width: 45px;
+    width: calc(100%/20);
+    /*max-width: 45px;*/
     min-height: 45px;
     margin: 3px;
     border-radius: 10px;
@@ -41,7 +42,29 @@ body {
     padding: 3px;
     line-height: 19px;
     font-size: 1.07rem;
+
     /*box-shadow: 2px;*/
+}
+
+.bigkey {
+    width: calc(100%/10);
+    /*max-width: 45px;
+    min-height: 45px;
+    margin: 3px;
+    border-radius: 10px;
+    outline: none;
+    padding: 3px;
+    line-height: 19px;
+    font-size: 1.07rem;*/
+    /*box-shadow: 2px;*/
+}
+
+#Space {
+    width: calc(100%/3);
+}
+
+#Escape, #MetaLeft, #ArrowLeft, #ArrowUp, #ArrowRight, #ArrowDown, #Delete {
+    width: calc(100%/14); 
 }
 
 .active {
@@ -52,13 +75,15 @@ body {
     display: none;
 }
 
-/*.key_container {
+.key_container {
     display: flex;    
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: center;
 }
 
-.key_container>p {
+/*.key_container>p {
     width: 100%;
     margin: 0;
 }
