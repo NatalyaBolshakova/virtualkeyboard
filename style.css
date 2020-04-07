@@ -8,14 +8,18 @@ body {
     margin-top: 20px;
     margin-bottom: 40px;
     border: 2px solid #5f4392;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 22px;  
     
 }
 
+.inf-area {
+    font-size: 18px;  
+}
+
 .pre>p {
     display: inline-block;
-    
+    font-size: 18px;    
 }
 
 .container {
